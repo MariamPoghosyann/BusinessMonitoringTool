@@ -46,6 +46,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'assignment',
     'business'
+    'assignment',
+    'rest_framework',
+    'business_indicator',
+    "import_export",
 ]
 
 MIDDLEWARE = [
@@ -130,3 +134,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+IMPORT_EXPORT_SKIP_ADMIN_LOG = True
