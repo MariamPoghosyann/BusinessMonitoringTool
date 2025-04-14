@@ -45,8 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'assignment',
-    'business'
-    'assignment',
+    'business',
     'rest_framework',
     'business_indicator',
     "import_export",
