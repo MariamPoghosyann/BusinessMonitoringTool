@@ -1,21 +1,20 @@
 from django.http import JsonResponse, HttpResponse
-
 from .models import Assignment
-from .tasks import my_task, send_assignment_email
+from .tasks import send_assignment_email
 from django.shortcuts import get_object_or_404
 
 
 
-def trigger_my_task(request):
-    arg1 = int(request.GET.get('arg1', 0))
-    arg2 = int(request.GET.get('arg2', 0))
-
-    # Call the task asynchronously
-    task = my_task.delay(arg1, arg2)
-
-    return JsonResponse({'task_id': task.id, 'status': 'Task submitted'})
-def trigger_my_task3(request):
-    return HttpResponse("The task was called successfully!")
+# def trigger_my_task(request):
+#     arg1 = int(request.GET.get('arg1', 0))
+#     arg2 = int(request.GET.get('arg2', 0))
+#
+#     # Call the task asynchronously
+#     #task = my_task.delay(arg1, arg2)
+#
+#     return JsonResponse({'task_id': task.id, 'status': 'Task submitted'})
+# def trigger_my_task3(request):
+#     return HttpResponse("The task was called successfully!")
 
 
 # email

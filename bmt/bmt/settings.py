@@ -66,7 +66,7 @@ ROOT_URLCONF = 'bmt.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -105,6 +105,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'poghosyanmariam44@gmail.com'
 EMAIL_HOST_PASSWORD = 'pkwm uqlp xalh qsbx'
+DEFAULT_FROM_EMAIL = 'poghosyanmariam44@gmail.com'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
