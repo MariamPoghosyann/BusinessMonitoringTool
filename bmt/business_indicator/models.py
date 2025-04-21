@@ -1,23 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-# class Reports(models.Model):
-#     record_id = models.CharField(max_length=10, primary_key=True)
-#     business = models.CharField(max_length=100, null=True)
-#     plan_fact = models.CharField(max_length=100, null=True)
-#     date = models.DateField()
-#     parent_id = models.IntegerField(m)
-#     name = models.CharField()
-#     show = models.CharField()
-#     type = models.CharField()
-#     operation = models.CharField()
-#     reverse_sign = models.IntegerField()
-#     value = models.IntegerField()
-#     color_code = models.CharField()
-
-#
-
-class Reports(models.Model):
+class Report(models.Model):
     record_id = models.CharField(max_length=255)
     business = models.CharField(max_length=255)
     plan_fact = models.CharField(max_length=255)

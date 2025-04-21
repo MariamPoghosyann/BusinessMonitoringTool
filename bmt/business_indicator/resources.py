@@ -1,7 +1,7 @@
 from import_export import resources
-from .models import Reports
+from .models import Report
 
-class ReportsResources(resources.ModelResource):
+class ReportResources(resources.ModelResource):
     class Meta:
-        model = Reports
+        model = Report
         import_id_fields = ['id']
