@@ -4,24 +4,27 @@ from .models import Assignment
 from .tasks import send_assignment_email
 
 @receiver(post_save, sender=Assignment)
-def notify_user_on_assignment_create(sender, instance, created, **kwargs):
+def notify_user_on_assignment_change(sender, instance, created, **kwargs):
+    if not instance.assigned_to:
+        return  # No user assigned, no email needed
+
+    user = instance.assigned_to
+
+    context = {
+        'assigned_to_name': user.username,
+        'assignment_title': instance.title,
+        'assignment_description': instance.description,
+        'business_name': instance.business.name if instance.business else "N/A",
+        'due_date': instance.due_date,
+        'status': instance.status,
+        'status_class': instance.status.lower().replace(' ', '-') if instance.status else "",
+        'uploaded_by_name': instance.uploaded_by.username if instance.uploaded_by else "Admin",
+        'notes': instance.notes if hasattr(instance, 'notes') and instance.notes else "No additional notes.",
+    }
+
     if created:
-        user = instance.assigned_to
-
-        context = {
-            'assigned_to_name': user.username,
-            'assignment_title': instance.title,
-            'assignment_description': instance.description,
-            'business_name': instance.business.name,  # Optional: replace with dynamic business name
-            'due_date': instance.due_date,
-            'status': instance.status,
-            'status_class': instance.status.lower().replace(' ', '-'),  # e.g., "In Progress" -> "in-progress"
-            'uploaded_by_name': instance.uploaded_by.username if instance.uploaded_by else "Admin",
-            'notes': instance.notes if hasattr(instance, 'notes') and instance.notes else "No additional notes.",
-        }
-
         subject = f"New Assignment: {instance.title}"
+    else:
+        subject = f"Assignment Updated: {instance.title}"
 
-        # Send the email via Celery
-        send_assignment_email.delay(user.email, subject, context)
-
+    send_assignment_email.delay(user.email, subject, context)
