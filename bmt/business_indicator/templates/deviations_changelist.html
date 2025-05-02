@@ -1,0 +1,82 @@
+{% extends "unfold/layouts/base.html" %}
+
+{% load static mathfilters unfold i18n %}
+
+{% block title %}
+    Deviations Dashboard
+{% endblock %}
+
+{% block extrastyle %}
+
+{% endblock %}
+
+{% block breadcrumbs %}{% if not is_popup %}
+    <div class="px-4 lg:px-8">
+        <div class="container mb-6 mx-auto -my-3 lg:mb-12">
+            <ul class="flex flex-wrap">
+                {% url 'admin:index' as link %}
+                {% trans 'Home' as name %}
+                {% include 'unfold/helpers/breadcrumb_item.html' with link=link name=name %}
+
+                {% url 'admin:formula_driver_changelist' as link %}
+                {% trans 'Business Indicators' as name %}
+                {% include 'unfold/helpers/breadcrumb_item.html' with link=link name=name %}
+                <span class="mx-2 text-base-200 dark:text-base-600">/</span>
+                {% trans 'Deviations' as name %}
+                {% include 'unfold/helpers/breadcrumb_item.html' with name=name %}
+            </ul>
+        </div>
+    </div>
+{% endif %}{% endblock %}
+
+{% block content %}
+    {% component "unfold/components/container.html" %}
+
+        <div class="grid grid-cols-1">
+            {% for business in deviations %}
+                {% component "unfold/components/title.html" %}
+                    {{ business.name }}
+                {% endcomponent %}
+                <div class="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6 mt-2 mb-8">
+                    <!-- lg u md screen i chaperna -->
+                    {% for entry in business.data %}
+                        {% component "unfold/components/card.html" with class=" m-4" %}
+                            <div class="flex flex-col justify-between h-full">
+                                <div>
+                                    {% component "unfold/components/title.html" %}
+                                        {{ entry.name }}
+                                    {% endcomponent %}
+                                {% component "unfold/components/text.html" %}
+                                    {{ entry.date|date:"F Y" }}
+                                    {% endcomponent %}
+                                </div>
+                                <div>
+                                    {% component "unfold/components/text.html" %}
+                                        {% component "unfold/components/title.html" %}
+                                            <span style="color: {% if not entry.color %}#ED4A4A{% else %}#008718{% endif %};">
+                                            {{ entry.value|abs|floatformat:0 }} <span class="currency">AMD</span>
+                                        </span>
+                                        {% endcomponent %}
+                                        {% component "unfold/components/text.html" %}
+                                            <span class="material-symbols-outlined"
+                                                  style="color: {% if not entry.color %}#ED4A4A{% else %}#008718{% endif %};">
+                                                {% if entry.is_grow %}arrow_drop_up{% else %}arrow_drop_down{% endif %}
+                                            </span>
+                                            <span style="color: {% if not entry.color %}#ED4A4A{% else %}#008718{% endif %};">
+                                            {{ entry.pct_deviation|abs }}%
+                                        </span>
+                                        {% endcomponent %}
+                                        {% component "unfold/components/text.html" %}
+                                            <div>Plan: {{ entry.plan_value|abs|floatformat:0 }}</div>
+                                            <div>Fact: {{ entry.fact_value|abs|floatformat:0 }}</div>
+                                        {% endcomponent %}
+                                    {% endcomponent %}
+                                </div>
+                            </div>
+                        {% endcomponent %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endcomponent %}
+{% endblock %}
