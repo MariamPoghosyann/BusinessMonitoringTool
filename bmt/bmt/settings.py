@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'business_indicator',
     "import_export",
+    "mathfilters",
 ]
 
 MIDDLEWARE = [
@@ -66,7 +67,7 @@ ROOT_URLCONF = 'bmt.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -141,7 +142,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static_files'  # Adjust 'static' if your CSS file is in a different folder
+]
+
+STATIC_ROOT = BASE_DIR / 'static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -149,3 +155,80 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 IMPORT_EXPORT_SKIP_ADMIN_LOG = True
+
+UNFOLD = {
+    "DASHBOARD_CALLBACK": "business_indicator.views.dashboard_callback",
+}
+# UNFOLD = {
+# "SITE_TITLE": "Business monitoring administration",
+#     "SITE_HEADER": "Business monitoring",
+#     "SITE_URL": "/",
+#     "SITE_ICON": lambda request: static("logos/soft.png"),
+#     "SITE_FAVICONS": [
+#         {
+#             "rel": "icon",
+#             "sizes": "256x256",
+#             "type": "image/ico",
+#             "href": lambda request: static("logos/favicon.ico"),
+#         },
+#     ],
+#     "SHOW_HISTORY": True,
+#     "SHOW_VIEW_ON_SITE": False,
+#     "SHOW_BACK_BUTTON": True,
+#     "SIDEBAR": {
+#         "show_search": True,
+#         "show_all_applications": True,
+#         "navigation": [
+#             {
+#                 "separator": False,
+#                 "collapsible": False,
+#                 "items": [
+#                     {
+#                         "title": "Applications",
+#                         "icon": "apps",
+#                         "link": reverse_lazy("admin:index"),
+#                         "permission": lambda request: request.user.is_staff,
+#                     },
+#                 ],
+#             },
+# {
+#                 "title": "Applications",
+#                 "separator": True,
+#                 "collapsible": True,
+#                 "items": [
+#                     {
+#                         "title": "Assignments",
+#                         "icon": "assignment",
+#                         "link": reverse_lazy("admin:assignments_assignment_changelist"),
+#                         "permission": lambda request: request.user.is_staff,
+#                     },
+#                     {
+#                         "title": "Assignments Title",
+#                         "icon": "list_alt",
+#                         "link": reverse_lazy("admin:assignments_assignmenttitle_changelist"),
+#                         "permission": lambda request: request.user.is_staff,
+#                     },
+#                     {
+#                         "title": "Reports",
+#                         "icon": "chart_data",
+#                         "link": reverse_lazy("admin:business_indicators_report_changelist"),
+#                         "permission": lambda request: request.user.is_staff,
+#                     },
+#                     {
+#                         "title": "Deviations",
+#                         "icon": "monitoring",
+#                         "link": reverse_lazy("admin:business_indicators_deviationhistory_changelist"),
+#                         "permission": lambda request: request.user.is_staff,
+#                     },
+#                     {
+#                         "title": "Businesses",
+#                         "icon": "work",
+#                         "link": reverse_lazy("admin:business_business_changelist"),
+#                         "permission": lambda request: request.user.is_staff,
+#                     },
+#                 ],
+#             },
+#         ],
+#     }
+# }
+

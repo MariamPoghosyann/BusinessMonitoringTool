@@ -7,3 +7,5 @@ django-import-export==4.3.7
 djangorestframework==3.16.0
 celery==5.5.1
 redis==5.2.1
+django-mathfilters==1.0.0
+pandas==2.2.3
