@@ -1,9 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
-
 from business.models import Business
 from business_indicator.choices import ShowChoices
-
 
 class Report(models.Model):
     record_id = models.CharField(max_length=255)
@@ -23,10 +21,9 @@ class Report(models.Model):
     def __str__(self):
         return self.name
 
-#qani vor databas ic chi vercnum, live hashvuma tvert u deviationov cucadrum, vorpeszi ereva adminkayum grum enq model
 class Deviation(models.Model):
     class Meta:
-        managed = False #database um schema chi sarqum deviationi hamar
+        managed = False
 
 
 

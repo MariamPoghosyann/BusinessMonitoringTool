@@ -6,6 +6,5 @@ class Business(models.Model):
     description = models.TextField(blank=True, null=True)
     responsible_person = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
-    #magic method grel str vor veradarcni buisness-nery
     def __str__(self):
         return self.name

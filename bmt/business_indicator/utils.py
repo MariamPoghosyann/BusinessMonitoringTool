@@ -14,8 +14,6 @@ def normalize(df):
     df['value'] = df['value'].replace('', 0.0)
 
     df['value'] = df['value'].astype(float)
-    # with pd.option_context('future.no_silent_downcasting', True):
-    #     df.replace('', np.nan)
     return df
 
 

@@ -11,7 +11,6 @@ class ReportsSerializer(serializers.ModelSerializer):
 class CSVUploaderSerializer(serializers.Serializer):
     file = serializers.FileField()
 
-
 class BusinessSerializer(serializers.ModelSerializer):
 
     class Meta:

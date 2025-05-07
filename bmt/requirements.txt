@@ -4,4 +4,7 @@ sqlparse==0.5.3
 tzdata==2025.2
 django-unfold==0.54.0
 django-import-export==4.3.7
-django-mathfilters
+django-mathfilters==1.0.0
+djangorestframework~=3.16.0
+pandas~=2.2.3
+pyecharts~=2.0.8

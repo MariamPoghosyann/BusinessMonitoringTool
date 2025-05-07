@@ -32,9 +32,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-# Application definition
-
 INSTALLED_APPS = [
     "unfold",  # before django.contrib.admin
     "unfold.contrib.filters",  # optional, if special filters are needed
@@ -154,76 +151,6 @@ IMPORT_EXPORT_SKIP_ADMIN_LOG = True
 UNFOLD = {
     "DASHBOARD_CALLBACK": "business_indicator.views.dashboard_callback",
 }
-# UNFOLD = {
-# "SITE_TITLE": "Business monitoring administration",
-#     "SITE_HEADER": "Business monitoring",
-#     "SITE_URL": "/",
-#     "SITE_ICON": lambda request: static("logos/soft.png"),
-#     "SITE_FAVICONS": [
-#         {
-#             "rel": "icon",
-#             "sizes": "256x256",
-#             "type": "image/ico",
-#             "href": lambda request: static("logos/favicon.ico"),
-#         },
-#     ],
-#     "SHOW_HISTORY": True,
-#     "SHOW_VIEW_ON_SITE": False,
-#     "SHOW_BACK_BUTTON": True,
-#     "SIDEBAR": {
-#         "show_search": True,
-#         "show_all_applications": True,
-#         "navigation": [
-#             {
-#                 "separator": False,
-#                 "collapsible": False,
-#                 "items": [
-#                     {
-#                         "title": "Applications",
-#                         "icon": "apps",
-#                         "link": reverse_lazy("admin:index"),
-#                         "permission": lambda request: request.user.is_staff,
-#                     },
-#                 ],
-#             },
-# {
-#                 "title": "Applications",
-#                 "separator": True,
-#                 "collapsible": True,
-#                 "items": [
-#                     {
-#                         "title": "Assignments",
-#                         "icon": "assignment",
-#                         "link": reverse_lazy("admin:assignments_assignment_changelist"),
-#                         "permission": lambda request: request.user.is_staff,
-#                     },
-#                     {
-#                         "title": "Assignments Title",
-#                         "icon": "list_alt",
-#                         "link": reverse_lazy("admin:assignments_assignmenttitle_changelist"),
-#                         "permission": lambda request: request.user.is_staff,
-#                     },
-#                     {
-#                         "title": "Reports",
-#                         "icon": "chart_data",
-#                         "link": reverse_lazy("admin:business_indicators_report_changelist"),
-#                         "permission": lambda request: request.user.is_staff,
-#                     },
-#                     {
-#                         "title": "Deviations",
-#                         "icon": "monitoring",
-#                         "link": reverse_lazy("admin:business_indicators_deviationhistory_changelist"),
-#                         "permission": lambda request: request.user.is_staff,
-#                     },
-#                     {
-#                         "title": "Businesses",
-#                         "icon": "work",
-#                         "link": reverse_lazy("admin:business_business_changelist"),
-#                         "permission": lambda request: request.user.is_staff,
-#                     },
-#                 ],
-#             },
-#         ],
-#     }
-# }
+
+
 
