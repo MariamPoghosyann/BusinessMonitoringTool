@@ -1,30 +1,16 @@
 from django.contrib.auth.models import User
 from django.db import models
+from business.models import Business
+from business_indicator.choices import ShowChoices
 
-# class Reports(models.Model):
-#     record_id = models.CharField(max_length=10, primary_key=True)
-#     business = models.CharField(max_length=100, null=True)
-#     plan_fact = models.CharField(max_length=100, null=True)
-#     date = models.DateField()
-#     parent_id = models.IntegerField(m)
-#     name = models.CharField()
-#     show = models.CharField()
-#     type = models.CharField()
-#     operation = models.CharField()
-#     reverse_sign = models.IntegerField()
-#     value = models.IntegerField()
-#     color_code = models.CharField()
-
-#
-
-class Reports(models.Model):
+class Report(models.Model):
     record_id = models.CharField(max_length=255)
-    business = models.CharField(max_length=255)
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)
     plan_fact = models.CharField(max_length=255)
     date = models.DateField()
     parent_id = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
-    show = models.BooleanField(default=True)
+    show = models.CharField(max_length=3, choices=ShowChoices.choices, default=ShowChoices.NO)
     type = models.CharField(max_length=255)
     operation = models.CharField(max_length=100, null=True, blank=True)
     color_code = models.BooleanField(max_length=255)
@@ -32,6 +18,13 @@ class Reports(models.Model):
     value = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
 
 
-    #uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.name
+
+class Deviation(models.Model):
+    class Meta:
+        managed = False
+
+
 
 

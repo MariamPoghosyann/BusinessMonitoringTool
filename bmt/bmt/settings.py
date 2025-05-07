@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+
+from django.contrib import staticfiles
+from django.template.context_processors import static
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,9 +31,6 @@ SECRET_KEY = 'django-insecure-sq+sj6_umg&nh8k_&zf*o37t-ed^&-fu2w2cvf9s%_ozssar_o
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
-# Application definition
 
 INSTALLED_APPS = [
     "unfold",  # before django.contrib.admin
@@ -49,6 +51,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'business_indicator',
     "import_export",
+    "mathfilters",
 ]
 
 MIDDLEWARE = [
@@ -66,7 +69,7 @@ ROOT_URLCONF = 'bmt.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -87,8 +90,12 @@ WSGI_APPLICATION = 'bmt.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'bmt',
+        'USER': 'bmt',
+        'PASSWORD': 'postgis',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -127,7 +134,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static_files'),  # Adjust 'static' if your CSS file is in a different folder
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -135,3 +147,10 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 IMPORT_EXPORT_SKIP_ADMIN_LOG = True
+
+UNFOLD = {
+    "DASHBOARD_CALLBACK": "business_indicator.views.dashboard_callback",
+}
+
+
+
