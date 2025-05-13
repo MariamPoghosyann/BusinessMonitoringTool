@@ -17,5 +17,11 @@ class BusinessSerializer(serializers.ModelSerializer):
         model = Business
         fields = '__all__'
 
+class BusinessSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Business
+        fields = '__all__'
+
 
 

@@ -93,6 +93,21 @@ DATABASES = {
     }
 }
 
+# Celery settings
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+
+
+#Email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'poghosyanmariam44@gmail.com'
+EMAIL_HOST_PASSWORD = 'pkwm uqlp xalh qsbx'
+DEFAULT_FROM_EMAIL = 'poghosyanmariam44@gmail.com'
+
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
@@ -127,10 +142,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static_files'),  # Adjust 'static' if your CSS file is in a different folder
+    BASE_DIR / 'static_files'  # Adjust 'static' if your CSS file is in a different folder
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = BASE_DIR / 'static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -141,4 +156,15 @@ IMPORT_EXPORT_SKIP_ADMIN_LOG = True
 
 UNFOLD = {
     "DASHBOARD_CALLBACK": "business_indicator.views.dashboard_callback",
+}
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/0",
+        "OPTIONS": {
+            "db": "10",
+            "pool_class": "redis.BlockingConnectionPool",
+        },
+    }
 }

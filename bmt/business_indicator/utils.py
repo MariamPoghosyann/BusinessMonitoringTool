@@ -1,4 +1,5 @@
 import pandas as pd
+from business_indicator.decorators import cache_func
 
 from django.db.models import OuterRef, Subquery, F, DateField
 from django.db.models.functions import ExtractYear, ExtractMonth
@@ -14,9 +15,12 @@ def normalize(df):
     df['value'] = df['value'].replace('', 0.0)
 
     df['value'] = df['value'].astype(float)
+    # with pd.option_context('future.no_silent_downcasting', True):
+    #     df.replace('', np.nan)
     return df
 
 
+@cache_func
 def get_deviations(request, business_id=None, user_id=None):
     queryset = Report.objects.filter(show=ShowChoices.YES)
     latest_report_date_subquery = (

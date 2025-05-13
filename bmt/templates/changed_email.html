@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment Change Notification</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            line-height: 1.6;
+            color: #3a3a3a;
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 0;
+            background-color: #f5f7fa;
+        }
+
+        .wrapper {
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4B0082 50%, #4B0082 100%);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-weight: 600;
+            font-size: 24px;
+            letter-spacing: 0.5px;
+        }
+
+        .header-accent {
+            height: 5px;
+            background: linear-gradient(90deg, #ec4899 0%, #4B0082 50%, #3b82f6 100%);
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .greeting {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .assignment-card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+        }
+
+        .field-row {
+            margin-bottom: 20px;
+        }
+
+        .field-name {
+            font-weight: 600;
+            color: #4B0082;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .field-value {
+            color: #3a3a3a;
+            font-size: 16px;
+            background-color: #f9fafb;
+            padding: 12px 15px;
+            border-radius: 6px;
+            border-left: 3px solid #4B0082;
+        }
+
+        .field-changed {
+            background-color: #fffbeb;
+            padding: 12px 15px;
+            border-radius: 6px;
+            border-left: 3px solid #f59e0b;
+            margin-bottom: 10px;
+        }
+
+        .change-indicator {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .change-label {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .previous-value {
+            background-color: #fee2e2;
+            color: #b91c1c;
+            text-decoration: line-through;
+        }
+
+        .new-value {
+            background-color: #dcfce7;
+            color: #166534;
+            text-decoration: underline;
+        }
+
+        .due-date {
+            color: #ef4444;
+            font-weight: 500;
+        }
+
+        .notes {
+            background-color: #fffbeb;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 3px solid #f59e0b;
+            font-style: italic;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .status-pending {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-in-progress {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+
+        .status-completed {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-overdue {
+            background-color: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .signature {
+            margin-top: 30px;
+            font-size: 16px;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #e5e7eb;
+            margin: 25px 0;
+        }
+
+        .footer {
+            background-color: #f9fafb;
+            padding: 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #6b7280;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .assignment-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            flex: 1;
+            min-width: 130px;
+            margin: 5px;
+            padding: 12px;
+            border-radius: 8px;
+            background-color: #f3f4f6;
+            text-align: center;
+        }
+
+        .meta-item.changed {
+            background-color: #fffbeb;
+            border: 1px dashed #f59e0b;
+        }
+
+        .meta-label {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .meta-value {
+            font-weight: 600;
+            color: #374151;
+            font-size: 15px;
+        }
+
+        .change-summary {
+            background-color: #f8fafc;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 25px;
+            border: 1px dashed #a855f7;
+        }
+
+        .change-summary-title {
+            font-weight: 600;
+            color: #a855f7;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .change-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .change-list li {
+            padding: 5px 0;
+            font-size: 14px;
+        }
+
+        .change-list li:before {
+            content: "•";
+            color: #a855f7;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <h1>Assignment Updated</h1>
+        </div>
+        <div class="header-accent"></div>
+        <div class="content">
+            <p class="greeting">Hello {{ assigned_to_name }},</p>
+
+            <p>An assignment for <strong>{{ business_name }}</strong> has been updated. Please review the changes below:</p>
+
+            <div class="assignment-card">
+                {% if title_changed %}
+                <div class="field-row">
+                    <div class="field-name">Title</div>
+                    <div class="field-changed">
+                        <div class="change-indicator">
+                            <span class="change-label previous-value">Previous</span>
+                            <span>{{ previous_title }}</span>
+                        </div>
+                        <div class="change-indicator">
+                            <span class="change-label new-value">New</span>
+                            <span>{{ assignment_title }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="field-row">
+                    <div class="field-name">Title</div>
+                    <div class="field-value">{{ assignment_title }}</div>
+                </div>
+                {% endif %}
+
+                <div class="assignment-meta">
+                    {% if due_date_changed %}
+                    <div class="meta-item changed">
+                        <div class="meta-label">Due Date</div>
+                        <div class="meta-value">
+                            <div style="text-decoration: line-through; color: #b91c1c; font-size: 13px;">{{ previous_due_date }}</div>
+                            <div style="text-decoration: underline; color: #ef4444;">{{ due_date }}</div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="meta-item">
+                        <div class="meta-label">Due Date</div>
+                        <div class="meta-value due-date">{{ due_date }}</div>
+                    </div>
+                    {% endif %}
+
+                    {% if status_changed %}
+                    <div class="meta-item changed">
+                        <div class="meta-label">Status</div>
+                        <div class="meta-value">
+                            <div style="margin-bottom: 5px;">
+                                <span class="status status-{{ previous_status_class }}" style="text-decoration: line-through;">{{ previous_status }}</span>
+                            </div>
+                            <div>
+                                <span class="status status-{{ status_class }}" style="text-decoration: underline;">{{ status }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="meta-item">
+                        <div class="meta-label">Status</div>
+                        <div class="meta-value">
+                            <span class="status status-{{ status_class }}">{{ status }}</span>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="meta-item">
+                        <div class="meta-label">Updated By</div>
+                        <div class="meta-value">{{ updated_by_name }}</div>
+                    </div>
+                </div>
+
+                {% if description_changed %}
+                <div class="field-row">
+                    <div class="field-name">Description</div>
+                    <div class="field-changed">
+                        <div class="change-indicator">
+                            <span class="change-label previous-value">Previous</span>
+                            <span>{{ previous_description }}</span>
+                        </div>
+                        <div class="change-indicator">
+                            <span class="change-label new-value">New</span>
+                            <span>{{ assignment_description }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="field-row">
+                    <div class="field-name">Description</div>
+                    <div class="field-value">{{ assignment_description }}</div>
+                </div>
+                {% endif %}
+
+                {% if notes_changed %}
+                <div class="field-row">
+                    <div class="field-name">Notes</div>
+                    <div class="field-changed">
+                        <div class="change-indicator">
+                            <span class="change-label previous-value">Previous</span>
+                            <span>{{ previous_notes }}</span>
+                        </div>
+                        <div class="change-indicator">
+                            <span class="change-label new-value">New</span>
+                            <span>{{ notes }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="field-row">
+                    <div class="field-name">Notes</div>
+                    <div class="notes">{{ notes }}</div>
+                </div>
+                {% endif %}
+            </div>
+
+            <p>This update was made on <strong>{{ update_timestamp }}</strong>. Please review these changes and take appropriate action.</p>
+
+            <div class="signature">
+                <p>Best regards,<br>
+                <strong>{{ business_name }} Team</strong></p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>This is an automated message. Please do not reply to this email.</p>
+            <p>© {{ business_name }}. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

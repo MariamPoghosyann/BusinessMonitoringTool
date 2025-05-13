@@ -1,5 +1,5 @@
+from django.core.cache import cache
 from import_export import resources
-
 from business.models import Business
 from .models import Report
 
@@ -18,3 +18,7 @@ class ReportsResources(resources.ModelResource):
         if business_name:
             business, _ = Business.objects.get_or_create(name=business_name)  # Get the Business object by name
             row['business'] = business.id
+
+    def after_import(self, dataset, result, **kwargs):
+        cache.clear()
+
