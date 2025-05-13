@@ -1,8 +1,8 @@
-# from django.db.models import Sum
+import csv
 from django.shortcuts import render
-# from django.views.generic import TemplateView
 from rest_framework import viewsets
-# from rest_framework.utils.representation import serializer_repr
+
+from .decorators import cache_func
 from .models import Report
 from rest_framework.utils.representation import serializer_repr
 from .models import Report
@@ -18,8 +18,6 @@ class ReportViewSet(viewsets.ModelViewSet):
 
         return render(request, 'templates/deviations_changelist.html')
 
-def test_dashboard(request):
-    return render(request, 'dashboard.html')
 
 def dashboard_callback(request, context):
 

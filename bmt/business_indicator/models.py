@@ -25,7 +25,7 @@ class Report(models.Model):
 
 class Deviation(models.Model):
     class Meta:
-        managed = False #database um schema chi sarqum deviationi hamar
+        managed = False 
 
 
 
