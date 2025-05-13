@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -26,9 +26,6 @@ SECRET_KEY = 'django-insecure-sq+sj6_umg&nh8k_&zf*o37t-ed^&-fu2w2cvf9s%_ozssar_o
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
-# Application definition
 
 INSTALLED_APPS = [
     "unfold",  # before django.contrib.admin
@@ -82,14 +79,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bmt.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'bmt',
+        'USER': 'bmt',
+        'PASSWORD': 'postgis',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -126,7 +126,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -137,7 +136,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
@@ -159,78 +157,6 @@ IMPORT_EXPORT_SKIP_ADMIN_LOG = True
 UNFOLD = {
     "DASHBOARD_CALLBACK": "business_indicator.views.dashboard_callback",
 }
-# UNFOLD = {
-# "SITE_TITLE": "Business monitoring administration",
-#     "SITE_HEADER": "Business monitoring",
-#     "SITE_URL": "/",
-#     "SITE_ICON": lambda request: static("logos/soft.png"),
-#     "SITE_FAVICONS": [
-#         {
-#             "rel": "icon",
-#             "sizes": "256x256",
-#             "type": "image/ico",
-#             "href": lambda request: static("logos/favicon.ico"),
-#         },
-#     ],
-#     "SHOW_HISTORY": True,
-#     "SHOW_VIEW_ON_SITE": False,
-#     "SHOW_BACK_BUTTON": True,
-#     "SIDEBAR": {
-#         "show_search": True,
-#         "show_all_applications": True,
-#         "navigation": [
-#             {
-#                 "separator": False,
-#                 "collapsible": False,
-#                 "items": [
-#                     {
-#                         "title": "Applications",
-#                         "icon": "apps",
-#                         "link": reverse_lazy("admin:index"),
-#                         "permission": lambda request: request.user.is_staff,
-#                     },
-#                 ],
-#             },
-# {
-#                 "title": "Applications",
-#                 "separator": True,
-#                 "collapsible": True,
-#                 "items": [
-#                     {
-#                         "title": "Assignments",
-#                         "icon": "assignment",
-#                         "link": reverse_lazy("admin:assignments_assignment_changelist"),
-#                         "permission": lambda request: request.user.is_staff,
-#                     },
-#                     {
-#                         "title": "Assignments Title",
-#                         "icon": "list_alt",
-#                         "link": reverse_lazy("admin:assignments_assignmenttitle_changelist"),
-#                         "permission": lambda request: request.user.is_staff,
-#                     },
-#                     {
-#                         "title": "Reports",
-#                         "icon": "chart_data",
-#                         "link": reverse_lazy("admin:business_indicators_report_changelist"),
-#                         "permission": lambda request: request.user.is_staff,
-#                     },
-#                     {
-#                         "title": "Deviations",
-#                         "icon": "monitoring",
-#                         "link": reverse_lazy("admin:business_indicators_deviationhistory_changelist"),
-#                         "permission": lambda request: request.user.is_staff,
-#                     },
-#                     {
-#                         "title": "Businesses",
-#                         "icon": "work",
-#                         "link": reverse_lazy("admin:business_business_changelist"),
-#                         "permission": lambda request: request.user.is_staff,
-#                     },
-#                 ],
-#             },
-#         ],
-#     }
-# }
 
 CACHES = {
     "default": {

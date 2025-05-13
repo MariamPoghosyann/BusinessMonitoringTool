@@ -1,6 +1,6 @@
 {% extends 'unfold/layouts/base_simple.html' %}
 
-{% load i18n %}
+{% load i18n unfold %}
 
 {% block breadcrumbs %}{% endblock %}
 
@@ -17,5 +17,33 @@
 {% endblock %}
 
 {% block content %}
-    Start dashboard {{ custom_variable }}
+    {% component 'unfold/components/flex.html' with class="mb-10" %}
+        <form method="get">
+            {% csrf_token %}
+            <div class="flex flex-row justify-between h-full">
+                {% for form in forms %}
+                    <div class="mr-4 mb-2">
+                        {{ form.as_p }}
+                    </div>
+                {% endfor %}
+            </div>
+            <div>
+                {% component 'unfold/components/button.html' with type="submit" %}
+                    Submit
+                {% endcomponent %}
+                {% url 'admin:index' as admin_url %}
+                {% component 'unfold/components/button.html' with href=admin_url %}
+                    Clear
+                {% endcomponent %}
+            </div>
+        </form>
+    {% endcomponent %}
+
+    {% component "unfold/components/container.html" with class="mt-10 max-w-full flex flex-wrap gap-6" %}
+        {% for chart in charts %}
+            <div class="flex-1 min-w-[45%] max-w-[48%]">
+                {{ chart }}
+            </div>
+        {% endfor %}
+    {% endcomponent %}
 {% endblock %}

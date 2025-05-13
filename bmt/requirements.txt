@@ -9,3 +9,4 @@ celery==5.5.1
 redis==5.2.1
 django-mathfilters==1.0.0
 pandas==2.2.3
+pyecharts~=2.0.8

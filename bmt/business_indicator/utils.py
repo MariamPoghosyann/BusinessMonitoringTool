@@ -19,6 +19,7 @@ def normalize(df):
     #     df.replace('', np.nan)
     return df
 
+
 @cache_func
 def get_deviations(request, business_id=None, user_id=None):
     queryset = Report.objects.filter(show=ShowChoices.YES)

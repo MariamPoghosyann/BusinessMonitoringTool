@@ -38,7 +38,6 @@
                     {{ business.name }}
                 {% endcomponent %}
                 <div class="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6 mt-2 mb-8">
-                    <!-- lg u md screen i chaperna -->
                     {% for entry in business.data %}
                         {% component "unfold/components/card.html" with class=" m-4" %}
                             <div class="flex flex-col justify-between h-full">

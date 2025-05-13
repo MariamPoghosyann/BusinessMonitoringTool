@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from django.db import models
-
 from business.models import Business
 from business_indicator.choices import ShowChoices
 
@@ -19,14 +18,10 @@ class Report(models.Model):
     reverse_sign = models.BooleanField()
     value = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
 
-
     def __str__(self):
         return self.name
 
+
 class Deviation(models.Model):
     class Meta:
-        managed = False 
-
-
-
-
+        managed = False
