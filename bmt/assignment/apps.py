@@ -1,6 +1,9 @@
 from django.apps import AppConfig
 
 
-class AppConfig(AppConfig):
+class AssignmentConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'assignment'
+
+    def ready(self):
+        import assignment.signals
